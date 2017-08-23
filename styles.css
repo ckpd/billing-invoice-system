@@ -1,0 +1,141 @@
+body{
+/*    background: url('img/bg.jpg');*/
+    background-size: cover; 
+}
+header{
+    background: white;
+    height: 5   em;
+    overflow: hidden;
+}
+.container{
+    width: 1100px;
+    margin: 0 auto;
+}
+.error{
+    color: white;
+    font-family:"Roboto", sans-serif;
+    background: #fb5660;
+    padding: 10px;
+    font-weight: 300;
+}
+form{
+    margin-top: 10px;
+}
+#form .wrapper{
+    width: 900px;
+    height: 300px;
+    margin: 10em auto;
+    text-align: center;
+    color: #575757;
+}
+#form .wrapper .action h1{
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-size: 25px;
+    padding: 2em;
+    color: #575757;
+    border-right: 0.5px solid #575757;
+;
+    line-height: 8em;
+}
+#form .wrapper .action{
+    position: relative;
+    top: -40px;
+}
+#form .wrapper .action, #form .wrapper .content{
+    display: inline-block;
+}
+#form .wrapper .content{
+    margin-top: 10px;
+}
+
+#form .wrapper .content form{
+    background:rgba(0,0,0,0.1);
+    padding: 20px;  
+    top: 10px;
+}
+
+#form .wrapper .content input[type=text], #form .wrapper .content input[type=password]{
+    width: 300px; 
+    margin-bottom: 1em;
+    padding: 8px;
+    border-radius: 4px;
+    border: 0;
+}
+
+#form .wrapper .content input[type=submit]{
+    width: 300px; 
+    padding: 8px;
+    border-radius: 4px;
+    border: 0;
+    background-color: #00aeef; 
+    color: white;
+}
+/*
+
+invoice_form page
+*/
+#invoice_form{
+    margin: 5em auto;
+    width: 800px;
+    background: white;
+    background:rgba(255,255,255,0.7);
+    padding: 30px;  
+    color: #575757;
+    font-family: "Roboto";
+}
+
+#invoice_form h1{
+    font-weight: 200;
+
+}
+#invoice_form h4{
+    font-weight: 500;
+}
+label{
+
+}
+
+.content input[type=text]{
+    margin: 1em;
+    padding: 2px;
+    clear: both;
+}
+.datatable{
+        text-align: left;
+
+}
+.datatable input[type=text]{
+    width: 100px;
+
+
+}
+
+.datatable input[type=number]{
+    width: 100px;
+
+}
+label{
+    font-weight: bold;
+    color: #575757;
+}
+
+input[type=submit]{
+    width: 250px;
+    height: 50px;
+    border: 0;
+    border-radius: 10px;
+    background-color: #00aeef;
+    font-size: 1.2em;
+    color: white;
+}
+.headline{
+    text-align: center;
+    font-weight: bolder;
+}
+hr{
+    color: red;
+}
+table{
+    width: 100%;
+}
