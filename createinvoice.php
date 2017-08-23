@@ -1,34 +1,7 @@
-<!--
-<?php
-   
-//    session_start();    
-//
-//    include('config.php');
-//    $obj = new DB_Query();
-//
-//
-//
-//    if($_SERVER["REQUEST_METHOD"] == "POST"){
-//        $firstname = strtolower($_REQUEST["firstname"]);
-//        $lastname = strtolower($_REQUEST["lastname"]);
-//        $city = strtolower($_REQUEST["city"]);
-//        $parish = strtolower($_REQUEST["parish"]);
-//        $vehiclereg = strtolower($_REQUEST["vehiclereg"]);
-//        $jobs = $_REQUEST["job"];
-//        $total = $_REQUEST["textTotal"];
-//        
-//        $obj->createinvoice($firstname,$lastname,$city,$parish,$vehiclereg, $jobs, $total);    
-//        $_SESSION['$lastID'] = $obj->createinvoice($firstname,$lastname,$city,$parish,$vehiclereg, $jobs, $total);
-//            
-//              header("location: confirminvoice.php");
-//        
-//        
-//    } 
+<?  
+    include('config.php');
+    $obj = new DB_Query();
 ?>
-
--->
-
-
 <html>
 <head>
     <title></title>
@@ -56,6 +29,10 @@
 <body>  
     <div class="container">
     <header>
+        <div id="response" class="alert alert-success" style="display:none;">
+			<a href="#" class="close" data-dismiss="alert">&times;</a>
+			<div class="message"></div>
+		</div>
         <div class="wrapper">
             <div class="content">
                 <h1>Create Invoice</h1>
@@ -65,7 +42,8 @@
     </header>
     <section id="formdata">
         <div class="wrapper">
-                <form method="post" id="create_invoice">
+                <form method="post" action="response.php" id="create_invoice">
+                <input type="hidden" name="action" value="create_invoice">
                     <h1>
                         <img src="http://via.placeholder.com/150x100" class="img-responsive">
                     </h1>
@@ -81,24 +59,21 @@
 							<div class="row">
 								<div class="col-xs-6">
 									<div class="form-group">
-										<input type="text" class="form-control margin-bottom copy-input required" name="customer_name" id="customer_name" placeholder="Enter name" tabindex="1">
+										<input type="text" class="form-control margin-bottom copy-input required" name="customerfname" id="customerfname" placeholder="Enter First Name" tabindex="1">
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control margin-bottom copy-input required" name="customer_address_1" id="customer_address_1" placeholder="Address 1" tabindex="3">	
+										<input type="text" class="form-control margin-bottom copy-input required" name="customercity" id="customercity" placeholder="City" tabindex="3">	
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control margin-bottom copy-input required" name="customer_town" id="customer_town" placeholder="Town" tabindex="5">		
+										<input type="text" class="form-control margin-bottom copy-input required" name="vehiclereg" id="vehiclereg" placeholder="Vehicle Registration" tabindex="5">
 									</div>
                                 </div>		
                                 <div class="col-xs-6">
 									<div class="form-group">
-										<input type="text" class="form-control margin-bottom copy-input required" name="customer_name" id="customer_name" placeholder="Enter name" tabindex="1">
+										<input type="text" class="form-control margin-bottom copy-input required" name="customerlname" id="customerlname" placeholder="Enter Last name" tabindex="1">
 									</div>
 									<div class="form-group">
-										<input type="text" class="form-control margin-bottom copy-input required" name="customer_address_1" id="customer_address_1" placeholder="Address 1" tabindex="3">	
-									</div>
-									<div class="form-group">
-										<input type="text" class="form-control margin-bottom copy-input required" name="customer_town" id="customer_town" placeholder="Town" tabindex="5">		
+										<input type="text" class="form-control margin-bottom copy-input required" name="customerparish" id="customerparish" placeholder="Parish" tabindex="3">	
 									</div>
                                 </div>		    
 								</div>
@@ -114,12 +89,18 @@
 							<div class="row">
 								<div class="col-xs-6">
 									<div class="form-group">
-										<input type="text" class="form-control margin-bottom required" name="customer_name_ship" id="customer_name_ship" placeholder="Invoice Date" tabindex="9">
+										<input type="text" class="form-control margin-bottom" name="customerinvoicedate" id="customerinvoicedate" placeholder="Invoice Date" tabindex="9">
+									</div>	
+                                    <div class="form-group">
+										<input type="email" class="form-control margin-bottom required" name="customeremail" id="customeremail" placeholder="Enter Email address" tabindex="9">
+									</div>    
+                                    <div class="form-group">
+										<input type="text" class="form-control margin-bottom" name="customerphone" id="customerphone" placeholder="Enter phone number" tabindex="10">
 									</div>
 								</div>
 								<div class="col-xs-6">	
                                     <div class="form-group">
-								    	<input type="text" class="form-control margin-bottom required" name="customer_address_1_ship" id="customer_address_1_ship" placeholder="Invoice Status Open" tabindex="10">
+								    	<input type="text" class="form-control margin-bottom" name="customerinvoicestatus" id="customerinvoicestatus" placeholder="Invoice Status Open" tabindex="10">
 									</div>
 									
 								</div>
@@ -129,8 +110,8 @@
 				</div>
             </div>
                     
-                    <!-- / end client details section -->
-			<table class="table table-bordered" id="invoice_table">
+            <!-- / end client details section -->
+			<table class="table table-bordered   " id="invoice_table">
 				<thead>
 					<tr>
                         <th></th>
@@ -152,11 +133,12 @@
 					<tr>
                         <td>
                             <a href="#" class="btn btn-danger btn-xs delete-row"  id="deleteRow"><span>x</span></a>
-
                         </td>
 						<td>
 							<div class="form-group form-group-sm  no-margin-bottom" >
 								<input type="text" class="form-control form-group-sm item-input invoice_product" name="invoice_product[]" placeholder="Enter item title or description" >
+                                <p class="item-select">or <a href="#">select an item</a></p>
+
 							</div>
 						</td>
 						<td class="text-right">
@@ -237,7 +219,44 @@
 				</div>
 			</div>
 		</form>
-        </div>        
+        
+		<div id="insert_customer" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Select an existing customer</h4>
+		      </div>
+		      <div class="modal-body">
+				<?php $obj->popCustomersList(); ?>
+		      </div>
+		      <div class="modal-footer">
+				<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+        </div>
+        
+        
+		<div id="insert" class="modal fade">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title">Select an item</h4>
+		      </div>
+		      <div class="modal-body">
+				<?php $obj->ProductsList(); ?>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" data-dismiss="modal" class="btn btn-primary" id="selected">Add</button>
+				<button type="button" data-dismiss="modal" class="btn">Cancel</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
     </section>
     </div>  
     </body>

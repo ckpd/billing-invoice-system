@@ -81,6 +81,67 @@ class DB_Query extends DB_Connect{
 
         
       }
+    
+    function ProductsList() {
+	// Connect to the database
+	$mysqli = new mysqli(SERVER, USER, PASS, DB);
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+	// the query
+	$query = "SELECT * FROM products ORDER BY productname ASC";
+	// mysqli select query
+	$results = $mysqli->query($query);
+	if($results) {
+		echo '<select class="form-control item-select">';
+		while($row = $results->fetch_assoc()) {
+		    print '<option value="'.$row['unitprice'].'">'.$row["productname"].' - '.$row["productdesc"].' - '.$row["unitprice"].'</option>';
+		}
+		echo '</select>';
+	} else {
+		echo "<p>There are no products, please add a product.</p>";
+	}
+
+	// close connection 
+	$mysqli->close();
+}
+    
+    function popCustomersList() {
+	// Connect to the database
+	$mysqli = new mysqli(SERVER, USER, PASS, DB);
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+	// the query
+	$query = "SELECT * FROM customer ORDER BY firstname ASC";
+	// mysqli select query
+	$results = $mysqli->query($query);
+	if($results) {
+		print '<table class="table table-striped table-bordered" id="data-table"><thead><tr>
+				<th><h4>First name</h4></th>
+				<th><h4>LastName name</h4></th>
+				<th><h4>phone</h4></th>
+				<th><h4>Vehicle Registration</h4></th>
+				<th><h4>Action</h4></th>
+			  </tr></thead><tbody>';
+		while($row = $results->fetch_assoc()) {
+		    print '<tr>
+					<td>'.$row["firstname"].'</td>
+					<td>'.$row["lastname"].'</td>
+					<td>'.$row["customerphone"].'</td>
+				    <td>'.$row["vehiclereg"].'</td>
+                    <td><a href="#" class="btn btn-primary btn-xs customer-select" setfirstname="'.$row['firstname'].'" setlastname="'.$row['lastname'].'" setphone="'.$row['customerphone'].'" setcity="'.$row['city'].'" setparish="'.$row['parish'].'" setemail="'.$row['customeremail'].'" setvehiclereg="'.$row['vehiclereg'].'">Select</a></td>
+            </tr>';
+		}
+		print '</tr></tbody></table>';
+	} else {
+		echo "<p>There are no customers to display.</p>";
+	}
+
+	$mysqli->close();
+}
 }
 
 ?>  
