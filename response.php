@@ -8,7 +8,8 @@ $mysqli = new mysqli(SERVER, USER, PASS, DB);
 $action = isset($_POST['action']) ? $_POST['action'] : "";
 // Create invoice
 if ($action == 'create_invoice'){
-        $date = date("Y-m-d");
+        $date = date("Y-m-d-s");
+    
         $firstname = strtolower($_REQUEST["customerfname"]);
         $email = strtolower($_REQUEST["customeremail"]);
         $customerphone = strtolower($_REQUEST["customerphone"]);
@@ -23,18 +24,16 @@ if ($action == 'create_invoice'){
         $total = strtolower($_REQUEST["invoice_total"]);
         $status = strtolower($_REQUEST["customerinvoicestatus"]);
         
+        //insert into customer
         if(empty($_REQUEST["customerid"])){
             $selectQuery = "SELECT * FROM customers WHERE firstname = '{$firstname}' AND lastname = '{$lastname}' AND city = '{$city}' AND customeremail = '{$email}'";
             $queryResult = $mysqli->query($selectQuery);
             if ($queryResult->num_rows > 0) {
                 $sql = "UPDATE customers SET lastVisited='{$date}'  WHERE firstname = '{$firstname}' AND lastname = '{$lastname}' AND city = '{$city}' AND customeremail = '{$email}'";
                 $mysqli->query($sql);
-
-                
             }else{
                 $sql = "INSERT INTO customers (firstname,lastname,customeremail,customerphone,city,parish,vehiclereg,lastVisited) VALUES('".$firstname."','".$lastname."','".$email."','".$customerphone."','".$city."','".$parish."','".$vehiclereg."','".$date."');";
                 $mysqli->query($sql);
-
 
             }
         }else{
@@ -42,17 +41,13 @@ if ($action == 'create_invoice'){
 
         }
     
-        $query = $sql;
-    
-    
-    
-    
-    
+            $query = $sql;
+
             $selectQuery = "SELECT customerid FROM customers WHERE firstname = '{$firstname}' AND lastname = '{$lastname}' AND city = '{$city}' AND customeremail = '{$email}'";
             $queryResult = $mysqli->query($selectQuery);
-            if ($queryResult->num_rows > 0) {
+            if ($queryResult->num_rows >= 1) {
                 while($row = $queryResult->fetch_assoc()) {
-                    $sql = "INSERT INTO invoices(customerid,invoice_date,total,status) VALUES('".$row['customerid']."','".$invoice_date."','".$total."','".$status."');";
+                    $sql = "INSERT INTO invoices(customerid,invoice_date,total,status,file) VALUES('".$row['customerid']."','".$invoice_date."','".$total."','".$status."','".$lastname."-".$firstname."-".$date."');";
                 $mysqli->query($sql);
                 }
             }
@@ -77,10 +72,6 @@ if ($action == 'create_invoice'){
     
             date_default_timezone_set(TIMEZONE);
             require_once('includes/autoload.php');
-
-
-            $r = rand(1,100);
-
 
             $pdf = new FPDF('P','mm','A4');
             $pdf->AddPage();
@@ -181,7 +172,7 @@ if ($action == 'create_invoice'){
 
 
             $pdf->Output();
-            $pdf->Output("invoices/$lastname-$firstname-$r-$date.pdf",'F');
+            $pdf->Output("invoices/$lastname-$firstname-$date.pdf",'F');
 
 
 	} else{

@@ -92,7 +92,7 @@
 							<div class="row">
 								<div class="col-xs-6">
                                     <div class="form-group">
-										<input type="text" class="form-control margin-bottom" name="customerinvoicedate" id="customerinvoicedate" placeholder="Invoice Date"  tabindex="9">
+										<input type="text" class="form-control margin-bottom" name="customerinvoicedate" id="customerinvoicedate" placeholder="Invoice Date" tabindex="9">
 									</div>	
                                     <div class="form-group">
 										<input type="email" class="form-control margin-bottom required" name="customeremail" id="customeremail" placeholder="Enter Email address" tabindex="9">
@@ -103,7 +103,7 @@
 								</div>
 								<div class="col-xs-6">	
                                     <div class="form-group">
-								    	<input type="text" class="form-control margin-bottom" name="customerinvoicestatus" id="customerinvoicestatus" placeholder="Invoice Status Open" tabindex="10">
+								    	<input type="text" class="form-control margin-bottom" name="customerinvoicestatus" id="customerinvoicestatus" placeholder="Invoice Status Open"  value="open" tabindex="10" readonly>
 									</div>
 									
 								</div>

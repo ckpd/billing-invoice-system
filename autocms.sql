@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 24, 2017 at 02:48 PM
--- Server version: 5.6.34-log
--- PHP Version: 7.1.5
+-- Generation Time: Aug 26, 2017 at 12:33 AM
+-- Server version: 5.6.35
+-- PHP Version: 7.0.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -45,10 +43,10 @@ INSERT INTO `admin` (`id`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Table structure for table `customers`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE `customers` (
   `customerid` int(100) NOT NULL,
   `firstname` varchar(255) NOT NULL,
   `lastname` varchar(255) NOT NULL,
@@ -56,35 +54,16 @@ CREATE TABLE `customer` (
   `customerphone` varchar(255) NOT NULL,
   `city` varchar(255) NOT NULL,
   `parish` varchar(255) NOT NULL,
-  `vehiclereg` varchar(255) NOT NULL
+  `vehiclereg` varchar(255) NOT NULL,
+  `lastVisited` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `customer`
+-- Dumping data for table `customers`
 --
 
-INSERT INTO `customer` (`customerid`, `firstname`, `lastname`, `customeremail`, `customerphone`, `city`, `parish`, `vehiclereg`) VALUES
-(270, 'Charlie', 'Deriggs', 'me@me.com', '14734055738', 'Marrast HIll', 'St Geo', 'PM 33'),
-(271, '', '', '', '', '', '', ''),
-(272, '', '', '', '', '', '', ''),
-(273, '', '', '', '', '', '', ''),
-(274, '', '', '', '', '', '', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoicelineintem`
---
-
-CREATE TABLE `invoicelineintem` (
-  `invoiceno` int(10) NOT NULL,
-  `productcode` int(10) NOT NULL,
-  `productname` varchar(255) NOT NULL,
-  `quantity` int(10) NOT NULL,
-  `unitprice` decimal(10,2) NOT NULL,
-  `extendedprice` decimal(10,2) NOT NULL,
-  `orderlist` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `customers` (`customerid`, `firstname`, `lastname`, `customeremail`, `customerphone`, `city`, `parish`, `vehiclereg`, `lastVisited`) VALUES
+(172, '', '', '', '', '', '', '', '2017-08-26-37');
 
 -- --------------------------------------------------------
 
@@ -93,26 +72,107 @@ CREATE TABLE `invoicelineintem` (
 --
 
 CREATE TABLE `invoices` (
-  `invoiceno` int(10) NOT NULL,
-  `invoicedate` datetime NOT NULL,
-  `customerid` int(10) NOT NULL,
-  `totalamount` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `invoiceid` int(11) NOT NULL,
+  `customerid` int(11) NOT NULL,
+  `invoice_date` varchar(255) NOT NULL,
+  `total` decimal(10,0) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `file` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`invoiceid`, `customerid`, `invoice_date`, `total`, `status`, `file`) VALUES
+(240, 172, '', '0', 'open', '--2017-08-26-37'),
+(241, 172, '', '0', 'open', '--2017-08-26-56'),
+(242, 172, '', '0', 'open', '--2017-08-26-26');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobs`
+-- Table structure for table `invoice_items`
 --
 
-CREATE TABLE `jobs` (
+CREATE TABLE `invoice_items` (
   `id` int(11) NOT NULL,
-  `invoiceno` int(10) NOT NULL,
-  `description` varchar(255) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `unitprice` decimal(10,2) NOT NULL,
-  `customerid` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `product` text NOT NULL,
+  `qty` int(11) NOT NULL,
+  `price` varchar(255) NOT NULL,
+  `subtotal` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoice_items`
+--
+
+INSERT INTO `invoice_items` (`id`, `product`, `qty`, `price`, `subtotal`) VALUES
+(292, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(291, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(290, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(288, '', 1, '', '0.00'),
+(289, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(286, '', 1, '', '0.00'),
+(287, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(285, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(284, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(283, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(282, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(281, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(280, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(278, '', 1, '', '0.00'),
+(279, '', 1, '', '0.00'),
+(277, '', 1, '', '0.00'),
+(276, '', 1, '', '0.00'),
+(275, '', 1, '', '0.00'),
+(273, '', 1, '', '0.00'),
+(274, '', 1, '', '0.00'),
+(271, '', 1, '', '0.00'),
+(272, '', 1, '', '0.00'),
+(270, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(269, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(268, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(267, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(266, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(265, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(264, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(263, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(262, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(259, '', 1, '', '0.00'),
+(260, '', 1, '', '0.00'),
+(261, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(258, '', 1, '', '0.00'),
+(257, '', 1, '', '0.00'),
+(256, '', 1, '', '0.00'),
+(255, '', 1, '', '0.00'),
+(254, '', 1, '', '0.00'),
+(253, '', 1, '', '0.00'),
+(252, '', 1, '', '0.00'),
+(251, '', 1, '', '0.00'),
+(250, '', 1, '', '0.00'),
+(249, '', 1, '', '0.00'),
+(248, '', 1, '', '0.00'),
+(247, '', 1, '', '0.00'),
+(246, '', 1, '', '0.00'),
+(245, '', 1, '', '0.00'),
+(244, '', 1, '', '0.00'),
+(243, '', 1, '', '0.00'),
+(242, '', 1, '', '0.00'),
+(241, '', 1, '', '0.00'),
+(240, '', 1, '', '0.00'),
+(239, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(238, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(237, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(236, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(235, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(293, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(294, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(295, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(296, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
+(297, '', 1, '', '0.00'),
+(298, '', 1, '', '0.00'),
+(299, '', 1, '', '0.00');
 
 -- --------------------------------------------------------
 
@@ -132,106 +192,72 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`productcode`, `productname`, `productdesc`, `unitprice`) VALUES
-(1, 'Oil', 'Castrl Gtx', 15.15);
+(0, 'Brake Fluid', 'Castrol GTX', '95.99');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicles`
+--
+
+CREATE TABLE `vehicles` (
+  `vehicle_id` int(10) NOT NULL,
+  `vehicle_reg_no` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `customers`
 --
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
+ALTER TABLE `customers`
   ADD PRIMARY KEY (`customerid`);
-
---
--- Indexes for table `invoicelineintem`
---
-ALTER TABLE `invoicelineintem`
-  ADD PRIMARY KEY (`invoiceno`),
-  ADD KEY `productcode` (`productcode`);
 
 --
 -- Indexes for table `invoices`
 --
 ALTER TABLE `invoices`
-  ADD PRIMARY KEY (`invoiceno`),
+  ADD PRIMARY KEY (`invoiceid`),
   ADD KEY `customerid` (`customerid`);
 
 --
--- Indexes for table `jobs`
+-- Indexes for table `invoice_items`
 --
-ALTER TABLE `jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `customerid` (`customerid`),
-  ADD KEY `invoiceno` (`invoiceno`);
+ALTER TABLE `invoice_items`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `products`
+-- Indexes for table `vehicles`
 --
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`productcode`);
+ALTER TABLE `vehicles`
+  ADD PRIMARY KEY (`vehicle_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `customers`
 --
-ALTER TABLE `admin`
-  MODIFY `id` int(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `customerid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=275;
+ALTER TABLE `customers`
+  MODIFY `customerid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoiceno` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `invoiceid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
 --
--- AUTO_INCREMENT for table `jobs`
+-- AUTO_INCREMENT for table `invoice_items`
 --
-ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `invoice_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=300;
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT for table `vehicles`
 --
-ALTER TABLE `products`
-  MODIFY `productcode` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `invoicelineintem`
---
-ALTER TABLE `invoicelineintem`
-  ADD CONSTRAINT `invoicelineintem_ibfk_1` FOREIGN KEY (`invoiceno`) REFERENCES `invoices` (`invoiceno`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `invoicelineintem_ibfk_2` FOREIGN KEY (`productcode`) REFERENCES `products` (`productcode`);
-
---
--- Constraints for table `invoices`
---
-ALTER TABLE `invoices`
-  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`customerid`) REFERENCES `customer` (`customerid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `invoices_ibfk_2` FOREIGN KEY (`invoiceno`) REFERENCES `jobs` (`invoiceno`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `jobs`
---
-ALTER TABLE `jobs`
-  ADD CONSTRAINT `jobs_ibfk_1` FOREIGN KEY (`customerid`) REFERENCES `customer` (`customerid`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
-
+ALTER TABLE `vehicles`
+  MODIFY `vehicle_id` int(10) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
