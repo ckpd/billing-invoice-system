@@ -1,6 +1,5 @@
 <?php
 include('db.php');
-
 class DB_Connect{
     protected $conn;
     
@@ -32,7 +31,7 @@ class DB_Query extends DB_Connect{
             $arr = array();
             $sql = "SELECT * 
                     FROM jobs 
-                    JOIN customer ON jobs.customerid 
+                    JOIN customers ON jobs.customerid 
                     JOIN invoice ON jobs.invoiceno
                     WHERE jobs.customerid = {$last_id}";
             $result = $this->conn->query($sql);
@@ -47,7 +46,7 @@ class DB_Query extends DB_Connect{
     
 
       function createinvoice($firstname,$lastname,$city,$parish,$vehiclereg,$jobs, $total){
-            $stmt = $this->conn->prepare("INSERT INTO customer(firstname,lastname,city,parish,vehiclereg ) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $this->conn->prepare("INSERT INTO customers(firstname,lastname,city,parish,vehiclereg ) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $firstname, $lastname, $city, $parish, $vehiclereg );  
             $stmt->execute();
             $last_id = mysqli_insert_id($this->conn);
@@ -108,40 +107,40 @@ class DB_Query extends DB_Connect{
 }
     
     function popCustomersList() {
-	// Connect to the database
-	$mysqli = new mysqli(SERVER, USER, PASS, DB);
-	// output any connection error
-	if ($mysqli->connect_error) {
-	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
-	}
-	// the query
-	$query = "SELECT * FROM customer ORDER BY firstname ASC";
-	// mysqli select query
-	$results = $mysqli->query($query);
-	if($results) {
-		print '<table class="table table-striped table-bordered" id="data-table"><thead><tr>
-				<th><h4>First name</h4></th>
-				<th><h4>LastName name</h4></th>
-				<th><h4>phone</h4></th>
-				<th><h4>Vehicle Registration</h4></th>
-				<th><h4>Action</h4></th>
-			  </tr></thead><tbody>';
-		while($row = $results->fetch_assoc()) {
-		    print '<tr>
-					<td>'.$row["firstname"].'</td>
-					<td>'.$row["lastname"].'</td>
-					<td>'.$row["customerphone"].'</td>
-				    <td>'.$row["vehiclereg"].'</td>
-                    <td><a href="#" class="btn btn-primary btn-xs customer-select" setfirstname="'.$row['firstname'].'" setlastname="'.$row['lastname'].'" setphone="'.$row['customerphone'].'" setcity="'.$row['city'].'" setparish="'.$row['parish'].'" setemail="'.$row['customeremail'].'" setvehiclereg="'.$row['vehiclereg'].'">Select</a></td>
-            </tr>';
-		}
-		print '</tr></tbody></table>';
-	} else {
-		echo "<p>There are no customers to display.</p>";
-	}
+        // Connect to the database
+        $mysqli = new mysqli(SERVER, USER, PASS, DB);
+        // output any connection error
+        if ($mysqli->connect_error) {
+            die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+        }
+        // the query
+        $query = "SELECT * FROM customers ORDER BY firstname ASC";
+        // mysqli select query
+        $results = $mysqli->query($query);
+        if($results) {
+            print '<table class="table table-striped table-bordered" id="data-table"><thead><tr>
+                    <th><h4>First name</h4></th>
+                    <th><h4>LastName name</h4></th>
+                    <th><h4>phone</h4></th>
+                    <th><h4>Vehicle Registration</h4></th>
+                    <th><h4>Action</h4></th>
+                  </tr></thead><tbody>';
+            while($row = $results->fetch_assoc()) {
+                print '<tr>
+                        <td>'.$row["firstname"].'</td>
+                        <td>'.$row["lastname"].'</td>
+                        <td>'.$row["customerphone"].'</td>
+                        <td>'.$row["vehiclereg"].'</td>
+                        <td><a href="#" class="btn btn-primary btn-xs customer-select" setfirstname="'.$row['firstname'].'" setlastname="'.$row['lastname'].'" setcustomerid="'.$row['customerid'].'"
+                        setphone="'.$row['customerphone'].'" setcity="'.$row['city'].'" setparish="'.$row['parish'].'" setemail="'.$row['customeremail'].'" setvehiclereg="'.$row['vehiclereg'].'">Select</a></td>
+                </tr>';
+            }
+            print '</tr></tbody></table>';
+        } else {
+            echo "<p>There are no customers to display.</p>";
+        }
 
-	$mysqli->close();
+        $mysqli->close();
+    }
 }
-}
-
-?>  
+?>

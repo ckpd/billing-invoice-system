@@ -1,32 +1,29 @@
 <?php
-   
     session_start();
-    require('config.php');
+    require_once('config.php');
     $obj= new DB_Query();
    
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(isset($_REQUEST["mUsername"]) && isset($_REQUEST["mPassword"])){
-            $username = trim($_REQUEST["mUsername"]);
-            $password = trim($_REQUEST["mPassword"]);
+            $username = $_REQUEST["mUsername"];
+            $password = $_REQUEST["mPassword"];
             
             
             $onny = $obj->login($username, $password);
             
             if($onny == true ){
-                
                $_SESSION["username"] = $username;
-                
                 header("location: createinvoice.php");
             }else{
                $error =  "sorry your login and password has an error";
             }
             
-    
         }
     }
 
 
 ?>
+<!DOCTYPE html>
 <html>
 <head>
     <title></title>

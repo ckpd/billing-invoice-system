@@ -99,6 +99,7 @@ function updateTotals(elem) {
     $(document).on('click', ".customer-select", function(e) {
             e.preventDefault();
         
+		    var mcustomerid = $(this).attr('setcustomerid');
 		    var mfirstname = $(this).attr('setfirstname');
 		    var mlastname = $(this).attr('setlastname');
             var mphone = $(this).attr('setphone');
@@ -107,6 +108,7 @@ function updateTotals(elem) {
             var mparish = $(this).attr('setparish');
             var mreg = $(this).attr('setvehiclereg');
 
+		    $('#customerid').val(mcustomerid);
 		    $('#customerfname').val(mfirstname);
 		    $('#customerlname').val(mlastname);
 		    $('#customerphone').val(mphone);

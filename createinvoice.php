@@ -47,6 +47,7 @@
                     <h1>
                         <img src="http://via.placeholder.com/150x100" class="img-responsive">
                     </h1>
+                    <br>
                     <div class="row">
 				<div class="col-xs-6">
 					<div class="panel panel-default">
@@ -54,6 +55,8 @@
 							<h4 class="float-left">Customer Information</h4>
 							<a href="#" class="float-right select-customer">Select existing customer</a>
 							<div class="clear"></div>
+                            <br>
+                            <input type="text" class="form-control margin-bottom" name="customerid" id="customerid" placeholder="Customer ID number" readonly>
 						</div>
 						<div class="panel-body form-group form-group-sm">
 							<div class="row">
@@ -88,8 +91,8 @@
 						<div class="panel-body form-group form-group-sm">
 							<div class="row">
 								<div class="col-xs-6">
-									<div class="form-group">
-										<input type="text" class="form-control margin-bottom" name="customerinvoicedate" id="customerinvoicedate" placeholder="Invoice Date" tabindex="9">
+                                    <div class="form-group">
+										<input type="text" class="form-control margin-bottom" name="customerinvoicedate" id="customerinvoicedate" placeholder="Invoice Date"  tabindex="9">
 									</div>	
                                     <div class="form-group">
 										<input type="email" class="form-control margin-bottom required" name="customeremail" id="customeremail" placeholder="Enter Email address" tabindex="9">
@@ -156,170 +159,74 @@
 						<td class="text-right">
 							<div class="input-group input-group-sm">
 								<span class="input-group-addon">&dollar;</span>
-								<input type="text" class="form-control calculate-sub" name="invoice_product_sub[]" id="invoice_product_sub" value="0.00" aria-describedby="sizing-addon1" disabled>
+								<input type="text" class="form-control calculate-sub" name="invoice_product_sub[]" id="invoice_product_sub" value="0.00" aria-describedby="sizing-addon1" readonly>
 							</div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 			<div id="invoice_totals" class="padding-right row text-right">
-				<div class="col-xs-6">
-			
-				</div>
-				<div class="col-xs-6 no-padding-right">
-<!--
-					<div class="row">
-						<div class="col-xs-4 col-xs-offset-5">
-							<strong>Sub Total:</strong>
-						</div>
-						<div class="col-xs-3">
-							&dollar;<span class="invoice-sub-total">0.00</span>
-							<input type="hidden" name="invoice_subtotal" id="invoice_subtotal">
-						</div>
-					</div>
--->
-<!--
-					<div class="row">
-						<div class="col-xs-4 col-xs-offset-5">
-							<strong>Discount:</strong>
-						</div>
-						<div class="col-xs-3">
-							&dollar;<span class="invoice-discount">0.00</span>
-							<input type="hidden" name="invoice_discount" id="invoice_discount">
-						</div>
-					</div>
-			
--->
-<!--
-                    <div class="row">
-						<div class="col-xs-4 col-xs-offset-5">
-							<strong>TAX/VAT:</strong><br>Remove TAX/VAT <input type="checkbox" class="remove_vat">
-						</div>
-						<div class="col-xs-3">
-							&dollar;<span class="invoice-vat" data-enable-vat="1" data-vat-rate="20" data-vat-method="">0.00</span>
-							<input type="hidden" name="invoice_vat" id="invoice_vat">
-						</div>
-					</div>
--->
-										<div class="row">
-						<div class="col-xs-4 col-xs-offset-5">
-							<strong>Total:</strong>
-						</div>
-						<div class="col-xs-3">
-							&dollar;<span class="invoice-total">0.00</span>
-							<input type="hidden" name="invoice_total" id="invoice_total">
-						</div>
-					</div>
-				</div>
+            <div class="col-xs-6">
 
-			</div>
-			<div class="row">
-				<div class="col-xs-12 margin-top btn-group">
-					<input type="submit" id="action_create_invoice" class="btn btn-success float-right" value="Create Invoice" data-loading-text="Creating...">
-				</div>
-			</div>
-		</form>
-        
-		<div id="insert_customer" class="modal fade">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title">Select an existing customer</h4>
-		      </div>
-		      <div class="modal-body">
-				<?php $obj->popCustomersList(); ?>
-		      </div>
-		      <div class="modal-footer">
-				<button type="button" data-dismiss="modal" class="btn">Cancel</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+            </div>
+            <div class="col-xs-6 no-padding-right">
+                <div class="row">
+                    <div class="col-xs-4 col-xs-offset-5">
+                        <strong>Total:</strong>
+                    </div>
+                    <div class="col-xs-3">
+                        &dollar;<span class="invoice-total">0.00</span>
+                        <input type="hidden" name="invoice_total" id="invoice_total">
+                    </div>
+                </div>
+            </div>
+
         </div>
-        
-        
-		<div id="insert" class="modal fade">
-		  <div class="modal-dialog">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title">Select an item</h4>
-		      </div>
-		      <div class="modal-body">
-				<?php $obj->ProductsList(); ?>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" data-dismiss="modal" class="btn btn-primary" id="selected">Add</button>
-				<button type="button" data-dismiss="modal" class="btn">Cancel</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+        <div class="row">
+            <div class="col-xs-12 margin-top btn-group">
+                <input type="submit" id="action_create_invoice" class="btn btn-success float-right" value="Create Invoice" data-loading-text="Creating...">
+            </div>
+        </div>
+    </form>
+
+        <div id="insert_customer" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select an existing customer</h4>
+              </div>
+              <div class="modal-body">
+                <?php $obj->popCustomersList(); ?>
+              </div>
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        </div>
+
+
+        <div id="insert" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select an item</h4>
+              </div>
+              <div class="modal-body">
+                <?php $obj->ProductsList(); ?>
+              </div>
+              <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn btn-primary" id="selected">Add</button>
+                <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
     </section>
     </div>  
     </body>
-<!--
-    <section id="invoice_form" ng-app="invoice">
-        <div class="wrapper">
-            <div class="content">
-                <h1 class="headline">Create Customer Invoice</h1>
-                <h4>Account Details</h4>
-                <form method="post">
-            <table class="datatable">
-                <tr>
-                  <td> <label for="firstname">First Name</label></td>
-                  <td> <input type="text" value="firstname" name="firstname"/></td>
-                  <td> <label for="lastname">Last Name</label></td>
-                  <td> <input type="text" value="lastname" name="lastname"/></td>
-                </tr>   
-                <tr>
-                  <td> <label for="city" >City</label></td>
-                  <td> <input type="text" value="c" name="city"/></td>   
-                  <td> <label for="parish" >Parish</label></td>
-                  <td> <input  type="text" value="x" name="parish"/></td>
-                </tr>
-                <tr>
-                  <td> <label for="vehiclereg">Vehicle Reg #</label></td>
-                  <td colspan="3"> <input  type="text" name="vehiclereg"/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><button type="button" class="btn btn-primary" id="add">Add item</button></td>
-                </tr>
-                <tr>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Amount</th>
-                </tr>
-            
-                <tr >    
-                    <td><input type="text" name="job[0][description]"></td>
-                    <td><input   type="text" min="0" max="10000" class="quantity" name="job[0][quantity]"></td>
-                    <td><input  type="text" min="0" max="10000" class="price" name="job[0][price]"></td>
-                    <td><input type="text" min="0" class="amount" name="job[0][amount]" ></td>
-                    <td></td> 
-                </tr>
-             
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td><input style="visibility:hidden;"  type="text" min="0" id="subtotal" name="textTotal" ></td>
-                </tr>      
-
-            </table>                                    <p class="subtotal">0.00</p>
-
-                    <input type="submit" name="submit" value="Generate Invoice" >
-                </form>
-            </div>
-        </div>
-    </section>
-
-    </body>
--->
-
 </html>
