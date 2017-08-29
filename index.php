@@ -23,38 +23,29 @@
 
 
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-    
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css" style="text.css"> <link href="styles.css" type="text/css" rel="stylesheet">
-
-    
-</head>
-<body>
-
+<?php
+    include("views/header-login.php");        
+?>
+<body id="main">
+    <?php 
+        if(isset($error)){
+            print "<p class='error'>Error: Please Check Your username or password</p>";
+        } 
+    ?>
     <section id="form">
         <div class="wrapper">
             <div class="action">
                 <h1>Authorized Access Only</h1>
             </div>
             <div class="content">
-                <h2>Invoice / billing system</h2>
-               <?php if(isset($error)){
-                     print "<p class='error'>Error: Please Check Your username or password</p>";
-                    } ?>
-                
+                <h2>Invoice / billing system</h2>                
                 <form method="post" action="#">
                     <input type="text" name="mUsername" placeholder="Enter username" required="true" /><br>
                     <input type="password" name="mPassword" placeholder="Password" required="true" /><br>
-                    <input type="submit" name="submit" value="Login"/>
+                    <input type="submit" name="submit" value="Login" id="btn-login"/>
                 </form>
             </div>
         </div>
     </section>
 
 </body>
-
-</html>

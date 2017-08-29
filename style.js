@@ -86,7 +86,7 @@ function updateTotals(elem) {
         $('#invoice_total').val((finalTotal).toFixed(2));
 
     }
-    
+
     
     /*select customer */
     $(document).on('click', ".select-customer", function(e){

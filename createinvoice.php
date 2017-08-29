@@ -1,31 +1,6 @@
-<?  
-    include('config.php');
-    $obj = new DB_Query();
+<?php
+    include("views/header.php");        
 ?>
-<html>
-<head>
-    <title></title>
-    
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,900" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css" style="text.css"> 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">  
-    <link href="styles.css" type="text/css" rel="stylesheet">
-    <link href="dataTables.bootstrap.min.css" type="text/css" rel="stylesheet">
-    <link href="jquery.dataTables.min.css" type="text/css" rel="stylesheet">
-
-    
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"> </script>  
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"> </script>  
-    <script src="style.js"> </script>
-    <script src="jquery.dataTables.min.js"> </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>  
-
-    
-    
-
-</head>
 <body>  
     <div class="container">
     <header>
@@ -67,9 +42,7 @@
 									<div class="form-group">
 										<input type="text" class="form-control margin-bottom copy-input required" name="customercity" id="customercity" placeholder="City" tabindex="3">	
 									</div>
-									<div class="form-group">
-										<input type="text" class="form-control margin-bottom copy-input required" name="vehiclereg" id="vehiclereg" placeholder="Vehicle Registration" tabindex="5">
-									</div>
+
                                 </div>		
                                 <div class="col-xs-6">
 									<div class="form-group">
@@ -167,7 +140,10 @@
 			</table>
 			<div id="invoice_totals" class="padding-right row text-right">
             <div class="col-xs-6">
-
+                <div class="form-group">
+                    <textarea class="form-control margin-bottom copy-input required" name="vehiclereg" id="vehiclereg" placeholder="Please enter any order notes here."></textarea>
+                    
+                </div>
             </div>
             <div class="col-xs-6 no-padding-right">
                 <div class="row">

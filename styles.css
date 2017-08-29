@@ -1,10 +1,10 @@
-body{
-/*    background: url('img/bg.jpg');*/
+#main{
+    background: url('img/bg.jpg');
     background-size: cover; 
 }
 header{
     background: white;
-    height: 5   em;
+    height: 5em;
     overflow: hidden;
 }
 .container{
@@ -26,15 +26,15 @@ form{
     height: 300px;
     margin: 10em auto;
     text-align: center;
-    color: #575757;
+    color: white;
 }
 #form .wrapper .action h1{
     font-family: 'Roboto';
     font-weight: 300;
     font-size: 25px;
     padding: 2em;
-    color: #575757;
-    border-right: 0.5px solid #575757;
+    color: white;
+    border-right: 0.5px solid white;
 ;
     line-height: 8em;
 }
@@ -53,6 +53,7 @@ form{
     background:rgba(0,0,0,0.1);
     padding: 20px;  
     top: 10px;
+    color: black;
 }
 
 #form .wrapper .content input[type=text], #form .wrapper .content input[type=password]{
@@ -61,11 +62,11 @@ form{
     padding: 8px;
     border-radius: 4px;
     border: 0;
+    
 }
 
 #form .wrapper .content input[type=submit]{
     width: 300px; 
-    padding: 8px;
     border-radius: 4px;
     border: 0;
     background-color: #00aeef; 

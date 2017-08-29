@@ -1,5 +1,6 @@
 <?php
 include('db.php');
+
 class DB_Connect{
     protected $conn;
     
@@ -141,6 +142,23 @@ class DB_Query extends DB_Connect{
         }
 
         $mysqli->close();
+    }
+    
+      function getInvoices(){
+          $sql = "SELECT * FROM invoices
+                JOIN customer ON invoices.customerid 
+                ORDER BY invoices ASC";
+    
+          $results = $this->conn->query($sql);
+          if($results){
+            echo "table head";
+              while($row = $results->fetch_assoc()){
+                  print_r($row);
+              }
+          }else{
+              print "there are no results";
+          }
+        
     }
 }
 ?>
