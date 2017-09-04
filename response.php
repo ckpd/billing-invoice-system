@@ -9,7 +9,6 @@ $action = isset($_POST['action']) ? $_POST['action'] : "";
 // Create invoice
 if ($action == 'create_invoice'){
         $date = date("Y-m-d-s");
-    
         $firstname = strtolower($_REQUEST["customerfname"]);
         $email = strtolower($_REQUEST["customeremail"]);
         $customerphone = strtolower($_REQUEST["customerphone"]);
@@ -23,6 +22,8 @@ if ($action == 'create_invoice'){
         $invoice_date = strtolower($_REQUEST["customerinvoicedate"]);
         $total = strtolower($_REQUEST["invoice_total"]);
         $status = strtolower($_REQUEST["customerinvoicestatus"]);
+        $mileage = strtolower($_REQUEST["customermileage"]);
+        $note = strtolower($_REQUEST["customernotes"]);
         
         //insert into customer
         if(empty($_REQUEST["customerid"])){
@@ -30,28 +31,24 @@ if ($action == 'create_invoice'){
             $queryResult = $mysqli->query($selectQuery);
             if ($queryResult->num_rows > 0) {
                 $sql = "UPDATE customers SET lastVisited='{$date}'  WHERE firstname = '{$firstname}' AND lastname = '{$lastname}' AND city = '{$city}' AND customeremail = '{$email}'";
-                $mysqli->query($sql);
             }else{
                 $sql = "INSERT INTO customers (firstname,lastname,customeremail,customerphone,city,parish,vehiclereg,lastVisited) VALUES('".$firstname."','".$lastname."','".$email."','".$customerphone."','".$city."','".$parish."','".$vehiclereg."','".$date."');";
-                $mysqli->query($sql);
-
             }
         }else{
-            $sql = "UPDATE customers SET lastVisited = $date WHERE customerid= {$_REQUEST["customerid"]}";
+            $sql ="UPDATE Customers SET lastVisited = '".$date."',
+            firstname = '".$firstname."',
+            lastname = '".$lastname."',
+            city = '".$city."',
+            customeremail = '".$email."'
+            WHERE customerid = {$_REQUEST['customerid']};";
 
         }
     
-            $query = $sql;
-
-            $selectQuery = "SELECT customerid FROM customers WHERE firstname = '{$firstname}' AND lastname = '{$lastname}' AND city = '{$city}' AND customeremail = '{$email}'";
-            $queryResult = $mysqli->query($selectQuery);
-            if ($queryResult->num_rows >= 1) {
-                while($row = $queryResult->fetch_assoc()) {
-                    $sql = "INSERT INTO invoices(customerid,invoice_date,total,status,file) VALUES('".$row['customerid']."','".$invoice_date."','".$total."','".$status."','".$lastname."-".$firstname."-".$date."');";
-                $mysqli->query($sql);
-                }
-            }
-    
+         
+            
+           
+ 
+         $query = $sql;
         //invoice item lines
         foreach($_POST['invoice_product'] as $key => $value) {                
             $item_product = $value;
@@ -67,8 +64,28 @@ if ($action == 'create_invoice'){
         
 
         if($mysqli->multi_query($query)){
-            //echo success message
+            $mysqli->close();
+        }else{
+            echo "Error: " . $sql . "<br>" . $mysqli->error;
         }
+    
+    $mysqli = new mysqli(SERVER, USER, PASS, DB);
+      //insert into database
+        $selectQuery = "SELECT customerid FROM customers WHERE firstname = '{$firstname}' AND lastname = '{$lastname}' AND city = '{$city}' AND customeremail = '{$email}'";
+        $queryResult = $mysqli->query($selectQuery);
+        if ($queryResult->num_rows >= 1) {
+            while($row = $queryResult->fetch_assoc()) {
+                $sql = "INSERT INTO invoices(customerid,invoice_date,total,status,file,mileage, note) VALUES('".$row['customerid']."','".$invoice_date."','".$total."','".$status."','".$lastname."-".$firstname."-".$date."','".$mileage."','".$note."');";
+                if ($mysqli->query($sql) === TRUE) {
+//                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $mysqli->error;
+                }
+          
+            }
+        }
+}
+
     
             date_default_timezone_set(TIMEZONE);
             require_once('includes/autoload.php');
@@ -121,8 +138,9 @@ if ($action == 'create_invoice'){
             $pdf->Cell(189,10,'',0,1);
 
             $pdf->SetFont('Times','B',12);
-            $pdf->Cell(40,5,"Vehicle Registration $vehiclereg ",0,1);
-
+            $pdf->Cell(40,5,"Vehicle Registration $vehiclereg ",0,0);
+            $pdf->Cell(90,5,'',0,0);
+            $pdf->Cell(34,5,"Mileage $mileage",0,1);
 
 
             //invoice contents
@@ -132,8 +150,20 @@ if ($action == 'create_invoice'){
             $pdf->Cell(40,5,'  Quantity',1,0);
             $pdf->Cell(20,5,'  Price',1,0);
             $pdf->Cell(34,5,'Amount',1,1);
+           
 
+            $pdf->SetFont('Times','',12);
 
+            $pdf->MultiCell( 188, 5, $note, 1);
+            $pdf->Cell(94,5,'',1,0);
+            $pdf->Cell(40,5,'',1,0);
+            $pdf->Cell(20,5,'',1,0);
+            $pdf->Cell(34,5,"",1,1);
+
+            $pdf->Cell(94,5,'',1,0);
+            $pdf->Cell(40,5,'',1,0);
+            $pdf->Cell(20,5,'',1,0);
+            $pdf->Cell(34,5,"",1,1);
             $pdf->SetFont('Times','',12);
 
 
@@ -175,9 +205,5 @@ if ($action == 'create_invoice'){
             $pdf->Output("invoices/$lastname-$firstname-$date.pdf",'F');
 
 
-	} else{
-    echo "og fax";
-}
-    
 
 ?>

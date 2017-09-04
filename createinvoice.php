@@ -167,10 +167,15 @@
 
         </div>
         <div class="row">
-            <div class="col-xs-12 margin-top btn-group">
-                <input type="submit" id="action_create_invoice" class="btn btn-success float-right" value="Create Invoice" data-loading-text="Creating...">
+       
+            <div class="col-xs-6 margin-top">
+                <input type="reset"  class="btn btn-danger float-left">
             </div>
+                 <div class="col-xs-6 margin-top">
+                <input type="submit" id="action_create_invoice" class="btn btn-success float-right" value="Create Invoice" data-loading-text="Creating...">
+            </div>  
         </div>
+        
     </form>
 
         <div id="insert_customer" class="modal fade">
