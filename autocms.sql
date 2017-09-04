@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 26, 2017 at 12:33 AM
+-- Generation Time: Sep 04, 2017 at 08:37 PM
 -- Server version: 5.6.35
 -- PHP Version: 7.0.20
 
@@ -63,7 +63,9 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customerid`, `firstname`, `lastname`, `customeremail`, `customerphone`, `city`, `parish`, `vehiclereg`, `lastVisited`) VALUES
-(172, '', '', '', '', '', '', '', '2017-08-26-37');
+(172, '', '', '', '', '', '', '', '2017-08-26-37'),
+(173, 'charlie', 'deriggs', 'me@me.com', '4734055738', 'marrast', 'saint geo', 'pm 33', '2017-09-02-41'),
+(174, 'charlie', 'deriggs', 'me@me.com', '4734055738', 'marrast', 'saint geo', 'pm 33', '2017-09-02-41');
 
 -- --------------------------------------------------------
 
@@ -87,7 +89,10 @@ CREATE TABLE `invoices` (
 INSERT INTO `invoices` (`invoiceid`, `customerid`, `invoice_date`, `total`, `status`, `file`) VALUES
 (240, 172, '', '0', 'open', '--2017-08-26-37'),
 (241, 172, '', '0', 'open', '--2017-08-26-56'),
-(242, 172, '', '0', 'open', '--2017-08-26-26');
+(242, 172, '', '0', 'open', '--2017-08-26-26'),
+(243, 173, '', '96', 'open', 'deriggs-charlie-2017-09-02-41'),
+(244, 173, '', '319', 'open', 'deriggs-charlie-2017-09-02-57'),
+(245, 174, '', '319', 'open', 'deriggs-charlie-2017-09-02-57');
 
 -- --------------------------------------------------------
 
@@ -172,7 +177,8 @@ INSERT INTO `invoice_items` (`id`, `product`, `qty`, `price`, `subtotal`) VALUES
 (296, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99'),
 (297, '', 1, '', '0.00'),
 (298, '', 1, '', '0.00'),
-(299, '', 1, '', '0.00');
+(299, '', 1, '', '0.00'),
+(300, 'Brake Fluid - Castrol GTX - 95.99', 1, '95.99', '95.99');
 
 -- --------------------------------------------------------
 
@@ -242,17 +248,17 @@ ALTER TABLE `vehicles`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customerid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
+  MODIFY `customerid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoiceid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=243;
+  MODIFY `invoiceid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 --
 -- AUTO_INCREMENT for table `invoice_items`
 --
 ALTER TABLE `invoice_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=300;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
 --
 -- AUTO_INCREMENT for table `vehicles`
 --
