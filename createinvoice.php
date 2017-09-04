@@ -69,7 +69,7 @@
 									</div>	
                                     <div class="form-group">
 										<input type="email" class="form-control margin-bottom required" name="customeremail" id="customeremail" placeholder="Enter Email address" tabindex="9">
-									</div>    
+									</div>          
                                     <div class="form-group">
 										<input type="text" class="form-control margin-bottom" name="customerphone" id="customerphone" placeholder="Enter phone number" tabindex="10">
 									</div>
@@ -78,14 +78,22 @@
                                     <div class="form-group">
 								    	<input type="text" class="form-control margin-bottom" name="customerinvoicestatus" id="customerinvoicestatus" placeholder="Invoice Status Open"  value="open" tabindex="10" readonly>
 									</div>
-									
-								</div>
+				                    <div class="form-group">
+										<input type="text" class="form-control margin-bottom required" name="vehiclereg" id="vehiclereg" placeholder="Vehicle Registration" tabindex="9">
+									</div>           
+									<div class="form-group">
+										<input type="text" class="form-control margin-bottom required" name="customermileage" id="customermileage" placeholder="Enter Current Mileage" tabindex="9">
+									</div> 
+                                </div>
 							</div>
 						</div>
 					</div>
 				</div>
             </div>
-                    
+              
+                
+                    <textarea class="form-control margin-bottom copy-input required" name="customernotes" id="customernotes" placeholder="Please enter Job Description here."></textarea>
+            <br>
             <!-- / end client details section -->
 			<table class="table table-bordered   " id="invoice_table">
 				<thead>
@@ -139,23 +147,23 @@
 				</tbody>
 			</table>
 			<div id="invoice_totals" class="padding-right row text-right">
+
+        <div id="invoice_totals" class="padding-right row text-right">
             <div class="col-xs-6">
-                <div class="form-group">
-                    <textarea class="form-control margin-bottom copy-input required" name="vehiclereg" id="vehiclereg" placeholder="Please enter any order notes here."></textarea>
-                    
-                </div>
+        
             </div>
             <div class="col-xs-6 no-padding-right">
                 <div class="row">
                     <div class="col-xs-4 col-xs-offset-5">
                         <strong>Total:</strong>
                     </div>
-                    <div class="col-xs-3">
+                    <div class="col-xs-2">
                         &dollar;<span class="invoice-total">0.00</span>
                         <input type="hidden" name="invoice_total" id="invoice_total">
                     </div>
                 </div>
             </div>
+        </div>
 
         </div>
         <div class="row">
@@ -205,4 +213,4 @@
     </section>
     </div>  
     </body>
-</html>
+
