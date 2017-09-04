@@ -33,7 +33,7 @@ class DB_Query extends DB_Connect{
             $sql = "SELECT * 
                     FROM jobs 
                     JOIN customers ON jobs.customerid 
-                    JOIN invoice ON jobs.invoiceno
+                    JOIN invoices ON jobs.invoiceno
                     WHERE jobs.customerid = {$last_id}";
             $result = $this->conn->query($sql);
                 if ($result->num_rows > 0) {
@@ -56,6 +56,7 @@ class DB_Query extends DB_Connect{
             $time = date('Y-m-d  H:i:s');
 
             $jobState = $this->conn->prepare("INSERT INTO invoice(invoicedate, customerid, totalamount) VALUES (?, ?,?)");
+            $jobState = $this->conn->prepare("INSERT INTO invoices(invoicedate, customerid, totalamount) VALUES (?, ?,?)");
             $jobState->bind_param("sss", $time, $last_id, $total );  
            
             $rc =  $jobState->execute();
@@ -146,7 +147,7 @@ class DB_Query extends DB_Connect{
     
       function getInvoices(){
           $sql = "SELECT * FROM invoices
-                JOIN customer ON invoices.customerid 
+                JOIN customers ON invoices.customerid 
                 ORDER BY invoices ASC";
     
           $results = $this->conn->query($sql);
