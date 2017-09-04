@@ -55,7 +55,6 @@ class DB_Query extends DB_Connect{
           
             $time = date('Y-m-d  H:i:s');
 
-            $jobState = $this->conn->prepare("INSERT INTO invoice(invoicedate, customerid, totalamount) VALUES (?, ?,?)");
             $jobState = $this->conn->prepare("INSERT INTO invoices(invoicedate, customerid, totalamount) VALUES (?, ?,?)");
             $jobState->bind_param("sss", $time, $last_id, $total );  
            
