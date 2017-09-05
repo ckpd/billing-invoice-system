@@ -30,6 +30,8 @@ $(document).ready(function() {
         
         return errorCounter;
     }
+    
+
      // remove product row
     $('#invoice_table').on('click', "#deleteRow", function(e) {
     	e.preventDefault();
@@ -184,4 +186,73 @@ function updateTotals(elem) {
 		}
 
 	}
+    
+    
+    // delete invoice
+	$(document).on('click', ".delete-invoice", function(e) {
+        e.preventDefault();
+        var invoiceId = 'action=delete_invoice&delete='+ $(this).attr('data-invoice-id'); //build a post data structure
+        var invoice = $(this);
+
+	    $('#delete_invoice').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
+			deleteInvoice(invoiceId);    
+			$(invoice).closest('tr').remove();
+        });
+   	});
+    
+    
+    $(document).on('click', "#action_edit_invoice", function() {
+		updateInvoice();
+	});
+	// update invoice
+    
+    	function updateInvoice() {
+
+   		var $btn = $("#action_update_invoice").button("loading");
+   		$("#update_invoice").find(':input:disabled').removeAttr('disabled');
+
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: $("#update_invoice").serialize(),
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			} 
+    	});
+
+   	}
+function deleteInvoice(invoiceId) {
+
+        jQuery.ajax({
+
+        	url: 'response.php',
+            type: 'POST', 
+            data: invoiceId,
+            dataType: 'json', 
+            success: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-warning").addClass("alert-success").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			},
+			error: function(data){
+				$("#response .message").html("<strong>" + data.status + "</strong>: " + data.message);
+				$("#response").removeClass("alert-success").addClass("alert-warning").fadeIn();
+				$("html, body").animate({ scrollTop: $('#response').offset().top }, 1000);
+				$btn.button("reset");
+			} 
+    	});
+
+   	}
 });

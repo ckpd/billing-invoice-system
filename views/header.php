@@ -31,4 +31,5 @@
     <script src="/js/app.min.js"></script>
 
 </head>
- 
+    <body>  
+    <div class="container">

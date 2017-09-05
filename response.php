@@ -44,8 +44,7 @@ if ($action == 'create_invoice'){
 
         }
     
-         
-            
+        
            
  
          $query = $sql;
@@ -57,7 +56,7 @@ if ($action == 'create_invoice'){
             $item_subtotal = $_REQUEST['invoice_product_sub'][$key];
 	   
             // insert invoice items into database
-            $query .= "INSERT INTO invoice_items (product,qty,price,subtotal) VALUES('".$item_product."','".$item_qty."','".$item_price."','".$item_subtotal."');";
+            $query .= "INSERT INTO invoice_items (invoiceid,product,qty,price,subtotal) VALUES('".$invoiceid."','".$item_product."','".$item_qty."','".$item_price."','".$item_subtotal."');";
             
             
         }

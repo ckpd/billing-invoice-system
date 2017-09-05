@@ -1,8 +1,63 @@
 <?php
-    include("views/header.php");  
-    require_once('config.php');
-    $obj= new DB_Query();
-   
+    include("views/header.php");   
+
+
+    $getID = $_GET['id'];
+    // Connect to the database
+    $mysqli = new mysqli(SERVER, USER, PASS, DB);
+    // output any connection error
+    if ($mysqli->connect_error) {
+        die('Error : ('.$mysqli->connect_errno .') '. $mysqli->connect_error);
+    }
+    // the query
+
+        
+
+    $query = "SELECT * 
+            FROM invoices
+            INNER JOIN invoices ON customers.customerid = invoices.customerid
+            WHERE invoice_id = '" . $mysqli->real_escape_string($getID) . "'";
+
+
+    $result = mysqli_query($mysqli, $query);
+    // mysqli select query
+    if($result) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $customer_name = $row['name']; // customer name
+            $customer_email = $row['email']; // customer email
+            $customer_address_1 = $row['address_1']; // customer address
+            $customer_address_2 = $row['address_2']; // customer address
+            $customer_town = $row['town']; // customer town
+            $customer_county = $row['county']; // customer county
+            $customer_postcode = $row['postcode']; // customer postcode
+            $customer_phone = $row['phone']; // customer phone number
+
+            //shipping
+            $customer_name_ship = $row['name_ship']; // customer name (shipping)
+            $customer_address_1_ship = $row['address_1_ship']; // customer address (shipping)
+            $customer_address_2_ship = $row['address_2_ship']; // customer address (shipping)
+            $customer_town_ship = $row['town_ship']; // customer town (shipping)
+            $customer_county_ship = $row['county_ship']; // customer county (shipping)
+            $customer_postcode_ship = $row['postcode_ship']; // customer postcode (shipping)
+            // invoice details
+            $invoice_number = $row['invoice']; // invoice number
+            $custom_email = $row['custom_email']; // invoice custom email body
+            $invoice_date = $row['invoice_date']; // invoice date
+            $invoice_due_date = $row['invoice_due_date']; // invoice due date
+            $invoice_subtotal = $row['subtotal']; // invoice sub-total
+            $invoice_shipping = $row['shipping']; // invoice shipping amount
+            $invoice_discount = $row['discount']; // invoice discount
+            $invoice_vat = $row['vat']; // invoice vat
+            $invoice_total = $row['total']; // invoice total
+            $invoice_notes = $row['notes']; // Invoice notes
+            $invoice_type = $row['invoice_type']; // Invoice type
+            $invoice_status = $row['status']; // Invoice status
+        }
+    }else{
+        echo "Error: " . $query . "<br>" . $mysqli->error;
+    }
+    /* close connection */
+    $mysqli->close();
 ?>
 
     <header>
@@ -32,7 +87,6 @@
 							<h4 class="float-left">Customer Information</h4>
 							<a href="#" class="float-right select-customer">Select existing customer</a>
 							<div class="clear"></div>
-                      
                             <br>
                             <input type="text" class="form-control margin-bottom" name="customerid" id="customerid" placeholder="Customer ID number" readonly>
 						</div>
@@ -70,8 +124,6 @@
                                     <div class="form-group">
 										<input type="text" class="form-control margin-bottom" name="customerinvoicedate" id="customerinvoicedate" placeholder="Invoice Date" tabindex="9">
 									</div>	
-                                                                      
-
                                     <div class="form-group">
 										<input type="email" class="form-control margin-bottom required" name="customeremail" id="customeremail" placeholder="Enter Email address" tabindex="9">
 									</div>          
@@ -221,6 +273,5 @@
         </div><!-- /.modal -->
 
     </section>
-    </div>  
-    </body>
+
 

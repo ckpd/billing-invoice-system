@@ -145,20 +145,77 @@ class DB_Query extends DB_Connect{
     }
     
       function getInvoices(){
-          $sql = "SELECT * FROM invoices
-                JOIN customer ON invoices.customerid 
-                ORDER BY invoices ASC";
+          $sql = "SELECT * 
+          FROM customers
+          INNER JOIN invoices ON customers.customerid = invoices.customerid";
     
           $results = $this->conn->query($sql);
           if($results){
-            echo "table head";
+            print '<table class="table table-striped table-bordered" id="data-table" cellspacing="0"><thead>
+            <tr>
+				<th><h4>Customer ID</h4></th>
+				<th><h4>First Name</h4></th>
+				<th><h4>Last Name</h4></th>
+				<th><h4>Email</h4></th>
+				<th><h4>Phone</h4></th>
+				<th><h4>Invoice ID</h4></th>
+				<th><h4>Invoice Date</h4></th>
+				<th><h4>Status </h4></th>
+				<th><h4>Action</h4></th>
+			  </tr></thead><tbody>';
               while($row = $results->fetch_assoc()){
-                  print_r($row);
-              }
-          }else{
-              print "there are no results";
-          }
-        
+                    print '
+			    <tr>
+					<td>'.$row["customerid"].'</td>
+					<td>'.$row["firstname"].'</td>
+				    <td>'.$row["lastname"].'</td>
+				    <td>'.$row["customeremail"].'</td>
+				    <td>'.$row["customerphone"].'</td> 
+                    <td>'.$row["invoiceid"].'</td>
+                    <td>'.$row["invoice_date"].'</td>
+                    <td>'.$row["status"].'</td>
+				    <td>
+                    <a href="invoice-edit.php?id='.$row["customerid"].'" id="action_edit_invoice" class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a> 
+                    <a  class="btn btn-danger btn-xs delete-invoice"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+			    </tr>
+		    ';
+		}
+		print '</tr></tbody></table>';
+	} else {
+        echo "Error: " . $sql . "<br>" . $this->conn->error;
+
+		echo "<p>There are no customers to display.</p>";
+	}
+
+       	$this->conn->close(); 
     }
 }
+
+
+
+// Initial invoice number
+function getInvoiceId() {
+	// Connect to the database
+        $mysqli = new mysqli(SERVER, USER, PASS, DB);
+	// output any connection error
+	if ($mysqli->connect_error) {
+	    die('Error : ('. $mysqli->connect_errno .') '. $mysqli->connect_error);
+	}
+	$query = "SELECT invoiceid FROM invoices ORDER BY invoiceid DESC LIMIT 1";
+	if ($result = $mysqli->query($query)) {
+		$row_cnt = $result->num_rows;
+	    $row = mysqli_fetch_assoc($result);
+	    //var_dump($row);
+	    if($row_cnt == 0){
+			echo INVOICE_INITIAL_VALUE;
+		} else {
+			echo $row['invoice'] + 1; 
+		}
+
+		// close connection 
+		$mysqli->close();
+	}
+	
+}
+
 ?>
